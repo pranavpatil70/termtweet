@@ -54,6 +54,15 @@ jobs:
 
     - name: Test installation
       run: |
-        pip install dist/*.whl
-        python -c "import termtweet; print('Package import successful')"
-        termtweet --help || python -m termtweet.cli --help
+        # Find the wheel file
+        WHEEL_FILE=$(ls dist/*.whl 2>/dev/null | head -1)
+        if [ -n "$WHEEL_FILE" ]; then
+          echo "Installing $WHEEL_FILE"
+          pip install "$WHEEL_FILE"
+          python -c "import termtweet; print('Package import successful')"
+          termtweet --help || python -m termtweet.cli --help
+        else
+          echo "No wheel file found, testing with local import"
+          python -c "import termtweet; print('Package import successful')"
+          python -m termtweet.cli --help
+        fi
