@@ -16,7 +16,7 @@ A simple, powerful Python script to tweet directly from your terminal or IDE. Pe
 
 ## 📋 Prerequisites
 
-- Python 3.6 or higher
+- Python 3.8 or higher
 - Twitter Developer Account with API v2 access
 
 ## 🚀 Installation

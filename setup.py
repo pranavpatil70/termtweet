@@ -42,7 +42,7 @@ setup(
         "Topic :: Utilities",
     ],
     keywords="twitter cli terminal tweet development",
-    python_requires=">=3.6",
+    python_requires=">=3.8",
     install_requires=requirements,
     entry_points={
         "console_scripts": [
