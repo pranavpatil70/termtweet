@@ -60,7 +60,7 @@ Examples:
     parser.add_argument(
         '--version', '-v',
         action='version',
-        version='TermTweet 1.0.0'
+        version='TermTweet 1.0.1'
     )
 
     return parser
