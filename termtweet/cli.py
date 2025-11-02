@@ -52,6 +52,12 @@ Examples:
     )
 
     parser.add_argument(
+        '--dry-run', '-d',
+        action='store_true',
+        help='Validate tweet without actually posting (safe testing)'
+    )
+
+    parser.add_argument(
         '--version', '-v',
         action='version',
         version='TermTweet 1.0.0'
@@ -95,22 +101,37 @@ def main():
 
     # Validate tweet length
     if len(args.text) > 280:
-        print(f"Tweet text is {len(args.text)} characters long. Maximum is 280 characters.")
+        print(f"❌ Tweet text is {len(args.text)} characters long. Maximum is 280 characters.")
         sys.exit(1)
 
     # Validate image if provided
     if args.image:
         if not os.path.exists(args.image):
-            print(f"Image file '{args.image}' not found.")
+            print(f"❌ Image file '{args.image}' not found.")
             sys.exit(1)
+        # Check file size (Twitter limit is 5MB)
+        file_size = os.path.getsize(args.image)
+        if file_size > 5 * 1024 * 1024:  # 5MB
+            print(f"❌ Image file is too large ({file_size / (1024*1024):.1f}MB). Maximum is 5MB.")
+            sys.exit(1)
+
+    # Handle dry run
+    if args.dry_run:
+        print("[DRY RUN] Validating tweet without posting...")
+        print("Tweet text ({} chars): {}".format(len(args.text), args.text))
+        if args.image:
+            print("Image: {}".format(args.image))
+        print("Validation successful! Use without --dry-run to actually post.")
+        return
 
     # Post the tweet
     success = tweet(args.text, args.image)
     if success:
-        print("Tweet posted successfully!")
+        print("✅ Tweet posted successfully!")
     else:
-        print("Failed to post tweet.")
-        print("Make sure your credentials are correct and your app has 'Read and Write' permissions.")
+        print("❌ Failed to post tweet.")
+        print("💡 Make sure your credentials are correct and your app has 'Read and Write' permissions.")
+        print("🔧 Run 'termtweet --test' to verify your setup.")
         sys.exit(1)
 
 if __name__ == "__main__":

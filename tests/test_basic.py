@@ -92,8 +92,8 @@ class TestTweet:
 class TestCLI:
     """Test CLI functionality."""
 
-    @patch('termtweet.cli.tweet')
-    @patch('termtweet.cli.load_credentials')
+    @patch('termtweet.core.tweet')
+    @patch('termtweet.core.load_credentials')
     def test_cli_tweet_success(self, mock_load_credentials, mock_tweet):
         """Test successful CLI tweet."""
         mock_load_credentials.return_value = ('key', 'secret', 'token', 'token_secret', 'bearer')
