@@ -95,13 +95,13 @@ def tweet(text, image_path=None):
         print("✅ Image uploaded successfully!")
 
     # Post the tweet
-    print("📝 Posting tweet...")
+    print("Posting tweet...")
     tweet_id = post_tweet(client, text, media_id)
     if tweet_id:
-        print(f"✅ Tweet posted! ID: {tweet_id}")
+        print("Tweet posted successfully!")
         return True
     else:
-        print("❌ Failed to post tweet.")
+        print("Failed to post tweet.")
         return False
 
 def setup_credentials():
@@ -160,11 +160,11 @@ TWITTER_BEARER_TOKEN={bearer_token}
 
 def test_credentials():
     """Test if credentials are configured correctly."""
-    print("🔍 Testing TermTweet configuration...")
+    print("Testing TermTweet configuration...")
 
     creds = load_credentials()
     if not creds:
-        print("❌ No credentials found. Run 'termtweet --setup' to configure.")
+        print("No credentials found. Run 'termtweet --setup' to configure.")
         return False
 
     api_key, api_secret, access_token, access_token_secret, bearer_token = creds
@@ -174,23 +174,23 @@ def test_credentials():
     if not api_key.startswith(('AA', 'BB', 'CC', 'DD')):
         issues.append("API Key format looks unusual")
     if len(api_key) != 25:
-        issues.append(f"API Key length is {len(api_key)}, should be 25")
+        issues.append("API Key length is {}, should be 25".format(len(api_key)))
     if len(api_secret) != 50:
-        issues.append(f"API Secret length is {len(api_secret)}, should be 50")
+        issues.append("API Secret length is {}, should be 50".format(len(api_secret)))
 
     if issues:
-        print("⚠️  Credential format warnings:")
+        print("Credential format warnings:")
         for issue in issues:
-            print(f"   - {issue}")
+            print("   - {}".format(issue))
 
-    print("🔗 Testing Twitter API connection...")
+    print("Testing Twitter API connection...")
     client = authenticate_twitter(api_key, api_secret, access_token, access_token_secret, bearer_token)
 
     if client is None:
-        print("❌ Authentication failed. Check your credentials and app permissions.")
-        print("💡 Make sure your Twitter app has 'Read and Write' permissions.")
+        print("Authentication failed. Check your credentials and app permissions.")
+        print("Make sure your Twitter app has 'Read and Write' permissions.")
         return False
 
-    print("✅ Authentication successful!")
-    print("🎉 TermTweet is ready to use!")
+    print("Authentication successful!")
+    print("TermTweet is ready to use!")
     return True

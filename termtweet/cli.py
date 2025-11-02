@@ -127,11 +127,11 @@ def main():
     # Post the tweet
     success = tweet(args.text, args.image)
     if success:
-        print("✅ Tweet posted successfully!")
+        print("Tweet posted successfully!")
     else:
-        print("❌ Failed to post tweet.")
-        print("💡 Make sure your credentials are correct and your app has 'Read and Write' permissions.")
-        print("🔧 Run 'termtweet --test' to verify your setup.")
+        print("Failed to post tweet.")
+        print("Make sure your credentials are correct and your app has 'Read and Write' permissions.")
+        print("Run 'termtweet --test' to verify your setup.")
         sys.exit(1)
 
 if __name__ == "__main__":
