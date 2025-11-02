@@ -55,5 +55,12 @@ include-package-data = true
 [tool.setuptools.packages.find]
 exclude = ["tests*", "docs*"]
 
+[tool.pytest.ini_options]
+minversion = "6.0"
+addopts = "-ra -q"
+testpaths = [
+    "tests",
+]
+
 [tool.setuptools.package-data]
 termtweet = ["*.md", "*.txt"]
