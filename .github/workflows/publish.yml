@@ -37,7 +37,7 @@ jobs:
       run: python -m twine check dist/*
 
     - name: Publish to Test PyPI
-      if: github.event.inputs.version == 'test' || github.event_name == 'workflow_dispatch'
+      if: ${{ github.event.inputs.version == 'test' && github.event_name != 'workflow_dispatch' }}
       run: |
         python -m twine upload --repository testpypi dist/* --non-interactive --disable-progress-bar
       env:
@@ -45,7 +45,7 @@ jobs:
         TWINE_PASSWORD: ${{ secrets.TEST_PYPI_API_TOKEN }}
 
     - name: Publish to PyPI
-      if: github.event_name == 'release'
+      if: ${{ github.event_name == 'release' || github.event_name == 'workflow_dispatch' }}
       run: |
         python -m twine upload dist/* --non-interactive --disable-progress-bar
       env:
