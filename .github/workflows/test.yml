@@ -66,3 +66,4 @@ jobs:
           python -c "import termtweet; print('Package import successful')"
           python -m termtweet.cli --help
         fi
+      shell: bash
